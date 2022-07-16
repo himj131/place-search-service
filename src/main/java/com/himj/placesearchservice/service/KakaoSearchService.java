@@ -12,7 +12,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.himj.placesearchservice.commons.HttpUtils.get;
+import static com.himj.placesearchservice.commons.HttpUtil.get;
 @Service
 public class KakaoSearchService {
     @Value("${kakao.search.uri}")
