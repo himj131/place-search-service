@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -29,10 +32,13 @@ public class KakaoSearchService {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("검색어 인코딩 실패", e);
         }
-        String apiURL = searchUri + "query=" + text;
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString(searchUri)
+                .queryParam("query", text)
+                .queryParam("size", searchRequest.getSearchCount())
+                .build();
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("Authorization", apiKey);
-        String responseBody = get(apiURL, requestHeaders);
+        String responseBody = get(uriComponents.toString(), requestHeaders);
         try {
             mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
             return mapper.readValue(responseBody, KakaoSearchResponse.class);

@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -32,12 +35,15 @@ public class NaverSearchService {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("검색어 인코딩 실패", e);
         }
-        String apiURL = searchUri + "query=" + text;
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
-        String responseBody = get(apiURL, requestHeaders);
 
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString(searchUri)
+                .queryParam("query", text)
+                .queryParam("display", requset.getSearchCount())
+                .build();
+        String responseBody = get(uriComponents.toUriString(), requestHeaders);
         try {
             return mapper.readValue(responseBody, NaverSearchResponse.class);
         } catch (JsonProcessingException e) {
