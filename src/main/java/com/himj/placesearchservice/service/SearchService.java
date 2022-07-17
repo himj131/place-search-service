@@ -5,7 +5,6 @@ import com.himj.placesearchservice.domain.KeywordSearchEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 @RequiredArgsConstructor
 @Service
@@ -15,11 +14,10 @@ public class SearchService {
 
     public List<String> searchByKeyword(SearchRequest searchRequest) {
         Events.raise(new KeywordSearchEvent(searchRequest.getKeyword()));
-        List<String> results = new ArrayList<>();
-        NaverSearchResponse naverResponse = naverSearcheService.search(searchRequest);
-        KakaoSearchResponse kakaoResponse = kaKaoSearchService.searh(searchRequest);
-        results.addAll(kakaoResponse.getDocuments().stream().map(KakaoSearchResponse.Document::getPlaceName).toList());
-        results.addAll(naverResponse.getItems().stream().map(NaverSearchResponse.Item::getTitle).toList());
-        return results;
+        NaverSearchResponse naverRes = naverSearcheService.search(searchRequest);
+        KakaoSearchResponse kakaoRes = kaKaoSearchService.searh(searchRequest);
+
+        SearchResult result = new SearchResult(kakaoRes.keywordList(), naverRes.keywordList());
+        return result.refinedResults();
     }
 }

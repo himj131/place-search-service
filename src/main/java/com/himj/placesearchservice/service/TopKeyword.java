@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class TopKeyword {
-    private String keyword;
-    private long searchCnt;
+    private final String keyword;
+    private final long searchCnt;
 
     public TopKeyword(String keyword, long searchCnt) {
         this.keyword = keyword;

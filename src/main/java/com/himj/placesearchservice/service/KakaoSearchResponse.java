@@ -3,6 +3,7 @@ package com.himj.placesearchservice.service;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 
+import java.util.Collections;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -21,5 +22,10 @@ public class KakaoSearchResponse {
     @Getter
     static class Meta {
         private int pageableCount;
+    }
+
+    public List<String> keywordList() {
+        if(documents == null) return Collections.emptyList();
+        return documents.stream().map(KakaoSearchResponse.Document::getPlaceName).toList();
     }
 }
