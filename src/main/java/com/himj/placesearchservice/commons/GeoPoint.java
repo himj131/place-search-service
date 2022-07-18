@@ -1,5 +1,8 @@
 package com.himj.placesearchservice.commons;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class GeoPoint {
     double x;
     double y;
@@ -37,7 +40,10 @@ public class GeoPoint {
     }
 
     public boolean sameLocation(GeoPoint point) {
-        return String.format("%.2f", this.x).equals(String.format("%.2f", point.x))
-                &&  String.format("%.2f", this.y).equals(String.format("%.2f", point.y));
+        BigDecimal thisx = new BigDecimal(this.x).setScale(3, RoundingMode.FLOOR);
+        BigDecimal thisy = new BigDecimal(this.y).setScale(3, RoundingMode.FLOOR);
+        BigDecimal paramx = new BigDecimal(point.x).setScale(3, RoundingMode.FLOOR);
+        BigDecimal paramy = new BigDecimal(this.y).setScale(3, RoundingMode.FLOOR);
+        return thisx.equals(paramx) && thisy.equals(paramy);
     }
 }

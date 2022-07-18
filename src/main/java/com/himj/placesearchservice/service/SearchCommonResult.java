@@ -28,6 +28,6 @@ public class SearchCommonResult {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SearchCommonResult that = (SearchCommonResult) o;
-        return Objects.equals(trimedKeyword, that.trimedKeyword) && geoPoint.sameLocation(that.geoPoint);
+        return geoPoint.sameLocation(that.geoPoint);
     }
 }
