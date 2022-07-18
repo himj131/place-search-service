@@ -13,7 +13,7 @@ public class SearchService {
     private final NaverSearchService naverSearcheService;
     private final KakaoSearchService kaKaoSearchService;
 
-    @Cacheable(value = "searchedKeywords", key = "#searchRequest")
+    @Cacheable(value = "searchedKeywords", key = "#searchRequest.keyword")
     public List<String> searchByKeyword(SearchRequest searchRequest) {
         Events.raise(new KeywordSearchEvent(searchRequest.getKeyword()));
         KakaoSearchResponse kakaoRes = kaKaoSearchService.searh(searchRequest);
