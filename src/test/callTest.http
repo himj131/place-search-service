@@ -1,0 +1,8 @@
+### 장소 검색
+GET http://localhost:8080/search?keyword=도쿄등심
+Accept: application/json
+
+
+### 검색 키워드 목록 (많이 검색한 순)
+GET http://localhost:8080/search/top-keyword
+Accept: application/json
