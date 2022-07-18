@@ -1,10 +1,13 @@
 package com.himj.placesearchservice.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.himj.placesearchservice.commons.GeoPoint;
 import lombok.Getter;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
@@ -16,6 +19,8 @@ public class KakaoSearchResponse {
     @Getter
     static class Document {
         private String placeName;
+        private String x;
+        private String y;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -26,6 +31,15 @@ public class KakaoSearchResponse {
 
     public List<String> keywordList() {
         if(documents == null) return Collections.emptyList();
-        return documents.stream().map(KakaoSearchResponse.Document::getPlaceName).toList();
+        return documents.stream()
+                .map(KakaoSearchResponse.Document::getPlaceName)
+                .toList();
+    }
+
+    public List<SearchCommonResult> toCommonType(){
+        if(documents == null) return Collections.emptyList();
+        return documents.stream()
+                .map(it -> new SearchCommonResult(it.placeName, it.x, it.y))
+                .toList();
     }
 }

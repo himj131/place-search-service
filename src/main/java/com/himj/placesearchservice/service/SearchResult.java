@@ -7,28 +7,28 @@ import java.util.List;
 import java.util.Set;
 
 public class SearchResult {
-    private List<String> baseEngineResults;
-    private List<String> otherEngineResults;
-    private List<String> refinedResults;
+    private List<SearchCommonResult> baseEngineResults;
+    private List<SearchCommonResult> otherEngineResults;
+    private List<SearchCommonResult> refinedResults;
 
     @Value("${search.count.limit}")
     private int displayCount;
 
-    public SearchResult(List<String> kakaoReults, List<String>...otherResults) {
+    public SearchResult(List<SearchCommonResult> kakaoReults, List<SearchCommonResult>...otherResults) {
         this.baseEngineResults = kakaoReults;
         this.refinedResults = kakaoReults;
         this.otherEngineResults = addDistinct(otherResults);
     }
 
-    private List<String> addDistinct(List<String>[] otherResults) {
-        Set<String> distincts = new HashSet<>(otherResults[0]);
+    private List<SearchCommonResult> addDistinct(List<SearchCommonResult>[] otherResults) {
+        Set<SearchCommonResult> distincts = new HashSet<>(otherResults[0]);
         for(int i=1; i<otherResults.length; i++) {
             distincts.addAll(otherResults[i]);
         }
         return distincts.stream().toList();
     }
 
-    public List<String> refinedResults() {
+    public List<SearchCommonResult> refinedResults() {
         if(baseEngineResults.size() < displayCount) {
             fillResultsFrom(otherEngineResults, displayCount - baseEngineResults.size());
         }
@@ -39,14 +39,23 @@ public class SearchResult {
         return refinedResults;
     }
 
-    private void fillResultsFrom(List<String> fromEnginResults, int needCount) {
+    private void fillResultsFrom(List<SearchCommonResult> fromEnginResults, int needCount) {
         int index= displayCount - needCount;
         while (refinedResults.size() == displayCount) {
-            String target = fromEnginResults.get(index);
+            SearchCommonResult target = fromEnginResults.get(index);
             if(target == null) break;
-            if(refinedResults.contains(target)) continue;
+            if(alreadyExists(target)) continue;
             refinedResults.add(target);
             index++;
         }
+    }
+
+    private boolean alreadyExists(SearchCommonResult target) {
+        return refinedResults.stream()
+                .anyMatch(it -> it.equals(target));
+    }
+
+    public List<String> resultKeywords() {
+        return refinedResults.stream().map(it->it.getKeyword()).toList();
     }
 }

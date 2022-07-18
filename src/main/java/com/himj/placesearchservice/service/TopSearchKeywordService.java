@@ -16,9 +16,11 @@ public class TopSearchKeywordService {
 
     public List<TopKeyword> topKeywords() {
         Set<ZSetOperations.TypedTuple<String>> results = redisHandler.topKeywords();
-        if (!results.isEmpty()) {
-            return results.stream().map(it -> new TopKeyword(it.getValue(), it.getScore().longValue())).toList();
+        if (results.isEmpty()) {
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
+        return results.stream()
+                .map(it -> new TopKeyword(it.getValue(), it.getScore().longValue()))
+                .toList();
     }
 }

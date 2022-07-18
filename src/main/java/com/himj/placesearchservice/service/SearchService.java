@@ -17,7 +17,7 @@ public class SearchService {
         NaverSearchResponse naverRes = naverSearcheService.search(searchRequest);
         KakaoSearchResponse kakaoRes = kaKaoSearchService.searh(searchRequest);
 
-        SearchResult result = new SearchResult(kakaoRes.keywordList(), naverRes.keywordList());
-        return result.refinedResults();
+        SearchResult result = new SearchResult(kakaoRes.toCommonType(), naverRes.toCommonType());
+        return result.resultKeywords();
     }
 }
