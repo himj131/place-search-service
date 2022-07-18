@@ -1,52 +1,46 @@
 package com.himj.placesearchservice.service;
 
-import org.springframework.beans.factory.annotation.Value;
-
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class SearchResult {
-    private List<SearchCommonResult> baseEngineResults;
+    private List<SearchCommonResult> kakaoEngineResults;
     private List<SearchCommonResult> otherEngineResults;
     private List<SearchCommonResult> refinedResults;
 
-    @Value("${search.count.limit}")
     private int displayCount;
 
     public SearchResult(List<SearchCommonResult> kakaoReults, List<SearchCommonResult>...otherResults) {
-        this.baseEngineResults = kakaoReults;
-        this.refinedResults = kakaoReults;
-        this.otherEngineResults = addDistinct(otherResults);
+        this.kakaoEngineResults = kakaoReults;
+        this.refinedResults = new ArrayList<>();
+        this.otherEngineResults = combineOthers(otherResults);
+        this.displayCount = 10;
     }
 
-    private List<SearchCommonResult> addDistinct(List<SearchCommonResult>[] otherResults) {
-        Set<SearchCommonResult> distincts = new HashSet<>(otherResults[0]);
-        for(int i=1; i<otherResults.length; i++) {
-            distincts.addAll(otherResults[i]);
+    private List<SearchCommonResult> combineOthers(List<SearchCommonResult>[] otherResults) {
+        List<SearchCommonResult> others = new ArrayList<>();
+        for(int i=0; i<otherResults.length; i++) {
+            others.addAll(otherResults[i]);
         }
-        return distincts.stream().toList();
+        return others;
     }
 
-    public List<SearchCommonResult> refinedResults() {
-        if(baseEngineResults.size() < displayCount) {
-            fillResultsFrom(otherEngineResults, displayCount - baseEngineResults.size());
-        }
+    private List<SearchCommonResult> refinedResults() {
+        refinedResults.addAll(kakaoEngineResults.size() < 5 ? kakaoEngineResults : kakaoEngineResults.subList(0, 5));
+        fillResultsFrom(otherEngineResults);
 
         if(refinedResults.size() < displayCount) {
-            fillResultsFrom(baseEngineResults,displayCount - refinedResults.size());
+            fillResultsFrom(kakaoEngineResults);
         }
         return refinedResults;
     }
 
-    private void fillResultsFrom(List<SearchCommonResult> fromEnginResults, int needCount) {
-        int index= displayCount - needCount;
-        while (refinedResults.size() == displayCount) {
-            SearchCommonResult target = fromEnginResults.get(index);
-            if(target == null) break;
+    private void fillResultsFrom(List<SearchCommonResult> fromEnginResults) {
+        for(int i = 0; i<fromEnginResults.size(); i++) {
+            SearchCommonResult target = fromEnginResults.get(i);
             if(alreadyExists(target)) continue;
+            if(refinedResults.size() == displayCount) break;
             refinedResults.add(target);
-            index++;
         }
     }
 
@@ -56,6 +50,6 @@ public class SearchResult {
     }
 
     public List<String> resultKeywords() {
-        return refinedResults.stream().map(it->it.getKeyword()).toList();
+        return refinedResults().stream().map(it->it.getKeyword()).toList();
     }
 }

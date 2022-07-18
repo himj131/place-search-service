@@ -14,8 +14,8 @@ public class SearchService {
 
     public List<String> searchByKeyword(SearchRequest searchRequest) {
         Events.raise(new KeywordSearchEvent(searchRequest.getKeyword()));
-        NaverSearchResponse naverRes = naverSearcheService.search(searchRequest);
         KakaoSearchResponse kakaoRes = kaKaoSearchService.searh(searchRequest);
+        NaverSearchResponse naverRes = naverSearcheService.search(searchRequest);
 
         SearchResult result = new SearchResult(kakaoRes.toCommonType(), naverRes.toCommonType());
         return result.resultKeywords();

@@ -30,9 +30,4 @@ public class SearchCommonResult {
         SearchCommonResult that = (SearchCommonResult) o;
         return Objects.equals(trimedKeyword, that.trimedKeyword) && geoPoint.sameLocation(that.geoPoint);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(keyword, trimedKeyword, geoPoint);
-    }
 }
