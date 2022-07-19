@@ -1,8 +1,9 @@
-package com.himj.placesearchservice.service;
+package com.himj.placesearchservice.infra;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.himj.placesearchservice.common.GeoPoint;
 import com.himj.placesearchservice.common.GeoTrans;
+import com.himj.placesearchservice.service.SearchCommonResultType;
 import lombok.Getter;
 
 import java.util.Collections;

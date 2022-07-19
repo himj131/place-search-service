@@ -19,15 +19,15 @@ public class SearchAPI {
     private final TopSearchKeywordService topSearchKeywordService;
 
     @GetMapping("/search")
-    public ResponseEntity<List<String>> searchPlace(@RequestParam("keyword") String keyword) {
+    public ResponseEntity<SearchResponse> searchPlace(@RequestParam("keyword") String keyword) {
         SearchRequest req = new SearchRequest(keyword);
         List<String> results = searchService.searchByKeyword(req);
-        return ResponseEntity.ok(results);
+        return ResponseEntity.ok(new SearchResponse(results));
     }
 
     @GetMapping("/search/top-keyword")
-    public ResponseEntity<List<TopKeyword>> topSearchKeyword() {
+    public ResponseEntity<TopKeywordResponse> topSearchKeyword() {
         List<TopKeyword> results = topSearchKeywordService.topKeywords();
-        return ResponseEntity.ok(results);
+        return ResponseEntity.ok(new TopKeywordResponse(results));
     }
 }

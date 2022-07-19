@@ -3,7 +3,6 @@ package com.himj.placesearchservice.infra;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.himj.placesearchservice.service.KakaoSearchResponse;
 import com.himj.placesearchservice.service.SearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
