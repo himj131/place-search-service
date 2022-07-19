@@ -1,3 +1,8 @@
+### 사전 필요
+### 1.docker 명령어를 위한 도커 설치 필수
+### 2.application run 필수
+
+
 ### 장소 검색
 GET http://localhost:8080/search?keyword=도쿄등심
 Accept: application/json
