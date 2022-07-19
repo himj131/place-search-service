@@ -22,12 +22,12 @@ public class NaverSearchResponse {
         private String mapy;
     }
 
-    public List<SearchCommonResult> toCommonType(){
+    public List<SearchCommonResultType> toCommonType(){
         if(items == null) return Collections.emptyList();
         return items.stream()
                 .map(it -> {
                     GeoPoint point = new GeoPoint(it.mapx, it.mapy);
-                    return new SearchCommonResult(it.title, GeoTrans.convert(GeoTrans.KATEC, GeoTrans.GEO, point));
+                    return new SearchCommonResultType(it.title, GeoTrans.convert(GeoTrans.KATEC, GeoTrans.GEO, point));
                 }).toList();
     }
 }

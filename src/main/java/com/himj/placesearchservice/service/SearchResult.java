@@ -4,28 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResult {
-    private List<SearchCommonResult> kakaoEngineResults;
-    private List<SearchCommonResult> otherEngineResults;
-    private List<SearchCommonResult> refinedResults;
+    private List<SearchCommonResultType> kakaoEngineResults;
+    private List<SearchCommonResultType> otherEngineResults;
+    private List<SearchCommonResultType> refinedResults;
 
     private int displayCount;
 
-    public SearchResult(List<SearchCommonResult> kakaoReults, List<SearchCommonResult>...otherResults) {
+    public SearchResult(List<SearchCommonResultType> kakaoReults, List<SearchCommonResultType>...otherResults) {
         this.kakaoEngineResults = kakaoReults;
         this.refinedResults = new ArrayList<>();
         this.otherEngineResults = combineOthers(otherResults);
         this.displayCount = 10;
     }
 
-    private List<SearchCommonResult> combineOthers(List<SearchCommonResult>[] otherResults) {
-        List<SearchCommonResult> others = new ArrayList<>();
+    private List<SearchCommonResultType> combineOthers(List<SearchCommonResultType>[] otherResults) {
+        List<SearchCommonResultType> others = new ArrayList<>();
         for(int i=0; i<otherResults.length; i++) {
             others.addAll(otherResults[i]);
         }
         return others;
     }
 
-    private List<SearchCommonResult> refinedResults() {
+    private List<SearchCommonResultType> refinedResults() {
         refinedResults.addAll(kakaoEngineResults.size() < 5 ? kakaoEngineResults : kakaoEngineResults.subList(0, 5));
         fillResultsFrom(otherEngineResults);
 
@@ -35,16 +35,16 @@ public class SearchResult {
         return refinedResults;
     }
 
-    private void fillResultsFrom(List<SearchCommonResult> fromEnginResults) {
+    private void fillResultsFrom(List<SearchCommonResultType> fromEnginResults) {
         for(int i = 0; i<fromEnginResults.size(); i++) {
-            SearchCommonResult target = fromEnginResults.get(i);
+            SearchCommonResultType target = fromEnginResults.get(i);
             if(alreadyExists(target)) continue;
             if(refinedResults.size() == displayCount) break;
             refinedResults.add(target);
         }
     }
 
-    private boolean alreadyExists(SearchCommonResult target) {
+    private boolean alreadyExists(SearchCommonResultType target) {
         return refinedResults.stream()
                 .anyMatch(it -> it.equals(target));
     }

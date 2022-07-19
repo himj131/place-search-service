@@ -26,10 +26,10 @@ public class KakaoSearchResponse {
         private int pageableCount;
     }
 
-    public List<SearchCommonResult> toCommonType(){
+    public List<SearchCommonResultType> toCommonType(){
         if(documents == null) return Collections.emptyList();
         return documents.stream()
-                .map(it -> new SearchCommonResult(it.placeName, it.x, it.y))
+                .map(it -> new SearchCommonResultType(it.placeName, it.x, it.y))
                 .toList();
     }
 }

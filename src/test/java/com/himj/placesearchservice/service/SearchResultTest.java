@@ -16,8 +16,8 @@ class SearchResultTest {
     @Test
     @DisplayName("카카오결과 5개 네이버 결과가 5개일 경우 서로 다른 키워드 10개 출력")
     void distinctTenResults() {
-        List<SearchCommonResult> kakao = getSearchResults(1, 5);
-        List<SearchCommonResult> naver = getSearchResults(6, 10);
+        List<SearchCommonResultType> kakao = getSearchResults(1, 5);
+        List<SearchCommonResultType> naver = getSearchResults(6, 10);
         searchResult = new SearchResult(kakao, naver);
         List<String> results = searchResult.resultKeywords();
         assertEquals(10, results.size());
@@ -26,8 +26,8 @@ class SearchResultTest {
     @Test
     @DisplayName("카카오, 네이버 중복결과 2개 있을때, 카카오 5개 -> 네이버 3개 -> 카카오 2개 순으로 노출")
     void duplicatedResults() {
-        List<SearchCommonResult> kakao = getSearchResults(11, 20);
-        List<SearchCommonResult> naver = getSearchResults(8, 12);
+        List<SearchCommonResultType> kakao = getSearchResults(11, 20);
+        List<SearchCommonResultType> naver = getSearchResults(8, 12);
         searchResult = new SearchResult(kakao, naver);
         List<String> results = searchResult.resultKeywords();
         assertEquals(results.get(0), "키워드11");
@@ -45,8 +45,8 @@ class SearchResultTest {
     @Test
     @DisplayName("카카오 2개, 네이버 4개 서로다른 결과 -> 총  6개 노출")
     void savenDistinctResults() {
-        List<SearchCommonResult> kakao = getSearchResults(1, 2);
-        List<SearchCommonResult> naver = getSearchResults(11, 14);
+        List<SearchCommonResultType> kakao = getSearchResults(1, 2);
+        List<SearchCommonResultType> naver = getSearchResults(11, 14);
         searchResult = new SearchResult(kakao, naver);
         List<String> results = searchResult.resultKeywords();
         assertEquals(results.size(), 6);
@@ -55,8 +55,8 @@ class SearchResultTest {
     @Test
     @DisplayName("카카오 10개, 네이버 5개 모두 중복일 경우 카카오 결과 10개 노출")
     void fiveNaverDuplicatedResults() {
-        List<SearchCommonResult> kakao = getSearchResults(1, 10);
-        List<SearchCommonResult> naver = getSearchResults(6, 10);
+        List<SearchCommonResultType> kakao = getSearchResults(1, 10);
+        List<SearchCommonResultType> naver = getSearchResults(6, 10);
         searchResult = new SearchResult(kakao, naver);
         List<String> results = searchResult.resultKeywords();
         assertEquals(results.size(), 10);
@@ -67,7 +67,7 @@ class SearchResultTest {
     @Test
     @DisplayName("카카오 0개, 네이버 5개 경우 네이버 결과 5개 노출")
     void zeroKaKaroResults() {
-        List<SearchCommonResult> naver = getSearchResults(1, 5);
+        List<SearchCommonResultType> naver = getSearchResults(1, 5);
         searchResult = new SearchResult(Collections.emptyList(), naver);
         List<String> results = searchResult.resultKeywords();
         assertEquals(results.size(), 5);
@@ -76,7 +76,7 @@ class SearchResultTest {
     @Test
     @DisplayName("카카오 5개, 네이버 0개 경우 카카오 결과 5개 노출")
     void zeroNaverResults() {
-        List<SearchCommonResult> kakao = getSearchResults(1, 5);
+        List<SearchCommonResultType> kakao = getSearchResults(1, 5);
         searchResult = new SearchResult(kakao, Collections.emptyList());
         List<String> results = searchResult.resultKeywords();
         assertEquals(results.size(), 5);
@@ -90,10 +90,10 @@ class SearchResultTest {
         assertEquals(results.size(), 0);
     }
 
-    private List<SearchCommonResult> getSearchResults(int from, int to) {
-        List<SearchCommonResult> results = new ArrayList<>();
+    private List<SearchCommonResultType> getSearchResults(int from, int to) {
+        List<SearchCommonResultType> results = new ArrayList<>();
         for(int i=from; i<= to; i++) {
-            results.add(new SearchCommonResult("키워드" + i, new GeoPoint(i, i)));
+            results.add(new SearchCommonResultType("키워드" + i, new GeoPoint(i, i)));
         }
         return results;
     }
