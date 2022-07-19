@@ -1,5 +1,6 @@
 package com.himj.placesearchservice.config.cache;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -17,13 +18,11 @@ import java.time.Duration;
 
 @EnableCaching
 @Configuration
+@RequiredArgsConstructor
 public class CacheConfig extends CachingConfigurerSupport {
-
-    @Autowired
-    RedisConnectionFactory connectionFactory;
-
+    private final RedisConnectionFactory connectionFactory;
     @Bean
-    public CacheManager redisCacheManager() {
+    public RedisCacheManager redisCacheManager() {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))

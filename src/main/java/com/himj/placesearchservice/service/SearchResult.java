@@ -10,8 +10,8 @@ public class SearchResult {
 
     private int displayCount;
 
-    public SearchResult(List<SearchCommonResultType> kakaoReults, List<SearchCommonResultType>...otherResults) {
-        this.kakaoEngineResults = kakaoReults;
+    public SearchResult(List<SearchCommonResultType> kakaoResults, List<SearchCommonResultType>...otherResults) {
+        this.kakaoEngineResults = kakaoResults;
         this.refinedResults = new ArrayList<>();
         this.otherEngineResults = combineOthers(otherResults);
         this.displayCount = 10;

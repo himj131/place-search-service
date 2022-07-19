@@ -1,12 +1,10 @@
 package com.himj.placesearchservice.common;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
 
 public class HttpUtil {
@@ -28,6 +26,16 @@ public class HttpUtil {
         } finally {
             con.disconnect();
         }
+    }
+
+    public static String textEncoding(String param) {
+        String text = null;
+        try {
+            text = URLEncoder.encode(param, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("검색어 인코딩 실패", e);
+        }
+        return text;
     }
 
     private static HttpURLConnection connect(String apiUrl){

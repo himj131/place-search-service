@@ -1,8 +1,10 @@
 package com.himj.placesearchservice.ui;
 
+import com.himj.placesearchservice.common.event.Events;
+import com.himj.placesearchservice.domain.KeywordSearchEvent;
+import com.himj.placesearchservice.domain.TopKeyword;
 import com.himj.placesearchservice.service.SearchRequest;
 import com.himj.placesearchservice.service.SearchService;
-import com.himj.placesearchservice.domain.TopKeyword;
 import com.himj.placesearchservice.service.TopSearchKeywordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ public class SearchAPI {
     public ResponseEntity<SearchResponse> searchPlace(@RequestParam("keyword") String keyword) {
         SearchRequest req = new SearchRequest(keyword);
         List<String> results = searchService.searchByKeyword(req);
+        Events.raise(new KeywordSearchEvent(keyword));
         return ResponseEntity.ok(new SearchResponse(results));
     }
 
