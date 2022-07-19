@@ -1,4 +1,4 @@
-package com.himj.placesearchservice.commons;
+package com.himj.placesearchservice.common;
 
 import org.junit.jupiter.api.Test;
 

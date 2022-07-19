@@ -1,4 +1,4 @@
-package com.himj.placesearchservice.domain;
+package com.himj.placesearchservice.common.event;
 
 import org.springframework.context.ApplicationEventPublisher;
 

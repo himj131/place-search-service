@@ -1,14 +1,14 @@
 package com.himj.placesearchservice.service;
 
+import com.himj.placesearchservice.infra.KakaoSearchService;
+import com.himj.placesearchservice.infra.NaverSearchService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cache.Cache;
 import org.springframework.data.redis.cache.RedisCacheManager;
 
-import java.util.List;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;

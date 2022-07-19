@@ -3,6 +3,6 @@ package com.himj.placesearchservice.service;
 import lombok.Builder;
 
 @Builder
-public class NaverSearcheRequest {
-    private String keyaord;
+public class NaverSearchRequest {
+    private String keyword;
 }

@@ -1,4 +1,4 @@
-package com.himj.placesearchservice.config;
+package com.himj.placesearchservice.config.cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;

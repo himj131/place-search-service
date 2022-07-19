@@ -1,12 +1,13 @@
-package com.himj.placesearchservice.service;
+package com.himj.placesearchservice.infra;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.himj.placesearchservice.service.KakaoSearchResponse;
+import com.himj.placesearchservice.service.SearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -15,14 +16,13 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.himj.placesearchservice.commons.HttpUtil.get;
+import static com.himj.placesearchservice.common.HttpUtil.get;
 @Service
 public class KakaoSearchService {
     @Value("${kakao.search.uri}")
     private String searchUri;
     @Value("${kako.searh.client.apikey}")
     private String apiKey;
-
     @Autowired
     ObjectMapper mapper;
     public KakaoSearchResponse searh(SearchRequest searchRequest) {

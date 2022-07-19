@@ -2,7 +2,7 @@ package com.himj.placesearchservice.ui;
 
 import com.himj.placesearchservice.service.SearchRequest;
 import com.himj.placesearchservice.service.SearchService;
-import com.himj.placesearchservice.service.TopKeyword;
+import com.himj.placesearchservice.domain.TopKeyword;
 import com.himj.placesearchservice.service.TopSearchKeywordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

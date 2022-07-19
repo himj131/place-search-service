@@ -1,4 +1,4 @@
-package com.himj.placesearchservice.service;
+package com.himj.placesearchservice.domain;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package com.himj.placesearchservice.commons;
+package com.himj.placesearchservice.common;
 
 public class GeoTrans {
     public static void main(String arg[])

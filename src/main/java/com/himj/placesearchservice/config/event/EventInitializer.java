@@ -1,6 +1,6 @@
-package com.himj.placesearchservice.commons;
+package com.himj.placesearchservice.config.event;
 
-import com.himj.placesearchservice.domain.Events;
+import com.himj.placesearchservice.common.event.Events;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;

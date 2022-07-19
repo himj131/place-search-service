@@ -1,5 +1,6 @@
-package com.himj.placesearchservice.domain;
+package com.himj.placesearchservice.infra;
 
+import com.himj.placesearchservice.domain.KeywordSearchEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.redis.core.ZSetOperations;

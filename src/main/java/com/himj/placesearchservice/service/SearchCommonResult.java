@@ -1,9 +1,7 @@
 package com.himj.placesearchservice.service;
 
-import com.himj.placesearchservice.commons.GeoPoint;
+import com.himj.placesearchservice.common.GeoPoint;
 import lombok.Getter;
-
-import java.util.Objects;
 
 @Getter
 public class SearchCommonResult {

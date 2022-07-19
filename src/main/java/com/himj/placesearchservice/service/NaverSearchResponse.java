@@ -1,8 +1,8 @@
 package com.himj.placesearchservice.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.himj.placesearchservice.commons.GeoPoint;
-import com.himj.placesearchservice.commons.GeoTrans;
+import com.himj.placesearchservice.common.GeoPoint;
+import com.himj.placesearchservice.common.GeoTrans;
 import lombok.Getter;
 
 import java.util.Collections;
@@ -20,11 +20,6 @@ public class NaverSearchResponse {
         private String title;
         private String mapx;
         private String mapy;
-    }
-
-    public List<String> keywordList() {
-        if(items == null) return Collections.emptyList();
-        return items.stream().map(Item::getTitle).toList();
     }
 
     public List<SearchCommonResult> toCommonType(){

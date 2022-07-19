@@ -1,6 +1,6 @@
 package com.himj.placesearchservice.service;
 
-import com.himj.placesearchservice.commons.GeoPoint;
+import com.himj.placesearchservice.common.GeoPoint;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

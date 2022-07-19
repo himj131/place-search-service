@@ -1,6 +1,7 @@
 package com.himj.placesearchservice.service;
 
-import com.himj.placesearchservice.domain.RedisKeywordHandler;
+import com.himj.placesearchservice.domain.TopKeyword;
+import com.himj.placesearchservice.infra.RedisKeywordHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
